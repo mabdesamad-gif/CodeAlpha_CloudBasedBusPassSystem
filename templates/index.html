@@ -5,52 +5,83 @@
 
 <!-- HERO SECTION -->
 <section class="hero-section">
-  <div class="container">
-    <div class="row align-items-center min-vh-85">
-      <div class="col-lg-6" data-aos="fade-right">
-        <span class="badge bg-warning text-dark mb-3 px-3 py-2">
-          <i class="bi bi-lightning-charge-fill me-1"></i> Nouveau — Système 100% en ligne
-        </span>
-        <h1 class="display-4 fw-bold text-white mb-4 lh-sm">
+  <div class="hero-bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  <div class="container position-relative">
+    <div class="row align-items-center min-vh-90">
+      <div class="col-lg-6">
+        <div class="hero-badge mb-4">
+          <i class="bi bi-lightning-charge-fill"></i>
+          <span>Système 100% Cloud • Gratuit</span>
+        </div>
+        <h1 class="hero-title mb-4">
           Votre Pass Bus<br>
-          <span class="text-warning">Simplifié & Sécurisé</span>
+          <span class="gradient-text">Intelligent & Sécurisé</span>
         </h1>
-        <p class="lead text-white-50 mb-5">
-          Réservez, gérez et accédez à votre pass de transport en commun
-          depuis n'importe où. QR Code intégré, zéro papier.
+        <p class="hero-subtitle mb-5">
+          Fini les files d'attente et les cartes perdues. Gérez votre abonnement de transport
+          en quelques clics, avec QR code intégré.
         </p>
-        <div class="d-flex flex-wrap gap-3">
-          <a href="{{ url_for('auth.register') }}" class="btn btn-warning btn-lg fw-semibold px-5 shadow">
-            <i class="bi bi-person-plus-fill me-2"></i>Commencer Gratuitement
+        <div class="hero-buttons">
+          <a href="{{ url_for('auth.register') }}" class="btn-hero-primary">
+            <i class="bi bi-rocket-takeoff-fill me-2"></i>Commencer Gratuitement
           </a>
-          <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-lg px-5">
+          <a href="{{ url_for('auth.login') }}" class="btn-hero-secondary">
             <i class="bi bi-box-arrow-in-right me-2"></i>Se Connecter
           </a>
         </div>
+        <div class="hero-stats mt-5">
+          <div class="hero-stat">
+            <strong>100%</strong>
+            <span>En ligne</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <strong>QR Code</strong>
+            <span>Unique</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <strong>24/7</strong>
+            <span>Disponible</span>
+          </div>
+        </div>
       </div>
-      <div class="col-lg-6 text-center d-none d-lg-block">
-        <div class="hero-card-mockup">
-          <div class="pass-card-demo shadow-lg">
-            <div class="pass-card-header">
-              <i class="bi bi-bus-front-fill fs-1 text-warning"></i>
-              <span class="pass-card-title">BusPass Cloud</span>
+      <div class="col-lg-6 d-none d-lg-flex justify-content-center">
+        <div class="hero-card-wrapper">
+          <div class="pass-card-demo">
+            <div class="pass-card-shine"></div>
+            <div class="pass-card-top">
+              <div class="pass-card-logo">
+                <i class="bi bi-bus-front-fill"></i>
+                <span>BusPass Cloud</span>
+              </div>
+              <span class="pass-card-status">● Actif</span>
             </div>
-            <div class="pass-card-body">
-              <div class="pass-info-row">
-                <span>Titulaire</span><strong>Ahmed Benali</strong>
+            <div class="pass-card-number">PASS-A8F3C2D1</div>
+            <div class="pass-card-info">
+              <div>
+                <small>Titulaire</small>
+                <strong>Ahmed Benali</strong>
               </div>
-              <div class="pass-info-row">
-                <span>Trajet</span><strong>Centre → Université</strong>
+              <div>
+                <small>Trajet</small>
+                <strong>Centre → Université</strong>
               </div>
-              <div class="pass-info-row">
-                <span>Validité</span><strong>Mensuel — Actif ✓</strong>
+              <div>
+                <small>Validité</small>
+                <strong>Mensuel</strong>
               </div>
-              <div class="qr-placeholder mt-3">
-                <i class="bi bi-qr-code fs-1 text-dark"></i>
-                <small class="d-block text-muted mt-1">QR Code Unique</small>
-              </div>
+            </div>
+            <div class="pass-card-qr">
+              <i class="bi bi-qr-code"></i>
+              <small>Scanner pour valider</small>
             </div>
           </div>
+          <div class="card-glow"></div>
         </div>
       </div>
     </div>
@@ -58,38 +89,42 @@
 </section>
 
 <!-- FEATURES SECTION -->
-<section class="features-section py-6">
+<section class="features-section">
   <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold display-6">Pourquoi choisir <span class="text-primary">BusPass Cloud</span> ?</h2>
-      <p class="text-muted lead">Une solution moderne pour le transport étudiant</p>
+    <div class="section-header">
+      <span class="section-tag">Pourquoi nous choisir</span>
+      <h2>Tout ce dont vous avez besoin</h2>
+      <p>Une solution moderne pensée pour les étudiants et les transports urbains</p>
     </div>
     <div class="row g-4">
       <div class="col-md-4">
-        <div class="feature-card h-100">
-          <div class="feature-icon bg-primary-soft">
-            <i class="bi bi-qr-code-scan text-primary"></i>
+        <div class="feature-card">
+          <div class="feature-icon-wrap" style="background: rgba(79,70,229,0.1)">
+            <i class="bi bi-qr-code-scan" style="color: #4f46e5"></i>
           </div>
-          <h5 class="fw-bold mt-3">QR Code Instantané</h5>
-          <p class="text-muted">Chaque pass génère un QR code unique, vérifiable à la montée du bus.</p>
+          <h5>QR Code Instantané</h5>
+          <p>Chaque pass génère un QR code unique et sécurisé, vérifiable en temps réel à la montée du bus.</p>
+          <div class="feature-arrow">→</div>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="feature-card h-100">
-          <div class="feature-icon bg-success-soft">
-            <i class="bi bi-shield-check text-success"></i>
+        <div class="feature-card feature-card-highlight">
+          <div class="feature-icon-wrap" style="background: rgba(255,255,255,0.2)">
+            <i class="bi bi-shield-check" style="color: white"></i>
           </div>
-          <h5 class="fw-bold mt-3">100% Sécurisé</h5>
-          <p class="text-muted">Données chiffrées, authentification sécurisée, zéro fraude possible.</p>
+          <h5>100% Sécurisé</h5>
+          <p>Authentification chiffrée, données protégées, zéro risque de fraude ou de duplication.</p>
+          <div class="feature-arrow">→</div>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="feature-card h-100">
-          <div class="feature-icon bg-warning-soft">
-            <i class="bi bi-cloud-check text-warning"></i>
+        <div class="feature-card">
+          <div class="feature-icon-wrap" style="background: rgba(245,158,11,0.1)">
+            <i class="bi bi-cloud-check" style="color: #f59e0b"></i>
           </div>
-          <h5 class="fw-bold mt-3">Accessible Partout</h5>
-          <p class="text-muted">Hébergé sur le cloud, disponible 24h/24 depuis n'importe quel appareil.</p>
+          <h5>Cloud & Accessible</h5>
+          <p>Hébergé sur le cloud, accessible 24h/24 depuis votre téléphone, tablette ou ordinateur.</p>
+          <div class="feature-arrow">→</div>
         </div>
       </div>
     </div>
@@ -97,31 +132,76 @@
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="steps-section py-6 bg-light">
+<section class="steps-section">
   <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold display-6">Comment ça marche ?</h2>
+    <div class="section-header">
+      <span class="section-tag">Simple & Rapide</span>
+      <h2>Comment ça marche ?</h2>
+      <p>4 étapes simples pour avoir votre pass de transport</p>
     </div>
-    <div class="row g-4 text-center">
-      <div class="col-md-3">
-        <div class="step-circle">1</div>
-        <h6 class="fw-bold mt-3">Créez votre compte</h6>
-        <p class="text-muted small">Inscription rapide avec votre email</p>
+    <div class="steps-wrapper">
+      <div class="steps-line"></div>
+      <div class="row g-4 text-center position-relative">
+        <div class="col-md-3">
+          <div class="step-item">
+            <div class="step-circle">
+              <i class="bi bi-person-plus-fill"></i>
+            </div>
+            <div class="step-number">01</div>
+            <h6>Créez votre compte</h6>
+            <p>Inscription rapide avec votre email en moins d'une minute</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="step-item">
+            <div class="step-circle">
+              <i class="bi bi-ticket-perforated-fill"></i>
+            </div>
+            <div class="step-number">02</div>
+            <h6>Demandez un pass</h6>
+            <p>Choisissez votre trajet, type d'abonnement et soumettez</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="step-item">
+            <div class="step-circle">
+              <i class="bi bi-patch-check-fill"></i>
+            </div>
+            <div class="step-number">03</div>
+            <h6>Validation Admin</h6>
+            <p>L'administrateur approuve votre demande rapidement</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="step-item">
+            <div class="step-circle">
+              <i class="bi bi-qr-code"></i>
+            </div>
+            <div class="step-number">04</div>
+            <h6>Utilisez votre QR</h6>
+            <p>Montrez votre QR code au chauffeur et montez dans le bus</p>
+          </div>
+        </div>
       </div>
-      <div class="col-md-3">
-        <div class="step-circle">2</div>
-        <h6 class="fw-bold mt-3">Demandez un pass</h6>
-        <p class="text-muted small">Choisissez votre trajet et durée</p>
-      </div>
-      <div class="col-md-3">
-        <div class="step-circle">3</div>
-        <h6 class="fw-bold mt-3">Validation Admin</h6>
-        <p class="text-muted small">L'admin approuve en quelques heures</p>
-      </div>
-      <div class="col-md-3">
-        <div class="step-circle">4</div>
-        <h6 class="fw-bold mt-3">Utilisez votre QR</h6>
-        <p class="text-muted small">Montrez le QR code dans le bus</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <div class="cta-bg-shape"></div>
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h2>Prêt à digitaliser votre transport ?</h2>
+          <p>Rejoignez BusPass Cloud et dites adieu aux passes papier</p>
+        </div>
+        <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+          <a href="{{ url_for('auth.register') }}" class="btn-cta">
+            <i class="bi bi-rocket-takeoff-fill me-2"></i>Commencer maintenant
+          </a>
+        </div>
       </div>
     </div>
   </div>
