@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% block title %}Créer un nouveau pass — BusPass Cloud{% endblock %}
+
+{% block content %}
+
+<div class="new-pass-container">
+  <div class="container">
+    <!-- HEADER -->
+    <div class="row mb-5">
+      <div class="col-lg-8">
+        <h1 class="display-5 fw-bold mb-3">Créer un nouveau pass</h1>
+        <p class="lead text-muted">
+          Remplissez le formulaire ci-dessous pour demander votre pass de transport.
+        </p>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card card-modern">
+          <div class="card-body p-5">
+            <form method="POST" novalidate>
+              <!-- ROUTE FROM -->
+              <div class="mb-5">
+                <label for="route_from" class="form-label fw-600 mb-3">Point de départ</label>
+                <select class="form-select form-select-lg" id="route_from" name="route_from" required>
+                  <option value="">-- Sélectionnez une gare --</option>
+                  <option value="Centre-ville">Centre-ville</option>
+                  <option value="Université">Université</option>
+                  <option value="Gare Centrale">Gare Centrale</option>
+                  <option value="Aéroport">Aéroport</option>
+                  <option value="Hôpital">Hôpital</option>
+                </select>
+              </div>
+
+              <!-- ROUTE TO -->
+              <div class="mb-5">
+                <label for="route_to" class="form-label fw-600 mb-3">Point d'arrivée</label>
+                <select class="form-select form-select-lg" id="route_to" name="route_to" required>
+                  <option value="">-- Sélectionnez une gare --</option>
+                  <option value="Centre-ville">Centre-ville</option>
+                  <option value="Université">Université</option>
+                  <option value="Gare Centrale">Gare Centrale</option>
+                  <option value="Aéroport">Aéroport</option>
+                  <option value="Hôpital">Hôpital</option>
+                </select>
+              </div>
+
+              <!-- PASS TYPE -->
+              <div class="mb-5">
+                <label class="form-label fw-600 mb-3">Type d'abonnement</label>
+                <div class="pass-type-grid">
+                  <!-- MONTHLY -->
+                  <div class="pass-type-option">
+                    <input type="radio" id="monthly" name="pass_type" value="monthly" checked>
+                    <label for="monthly" class="pass-type-card">
+                      <div class="pass-type-icon">
+                        <i class="bi bi-calendar-month"></i>
+                      </div>
+                      <h6 class="fw-bold mt-3 mb-1">Mensuel</h6>
+                      <p class="text-muted small mb-2">1 mois de transport illimité</p>
+                      <div class="pass-type-price">
+                        <span class="h5 fw-bold text-primary">50 DH</span>
+                      </div>
+                    </label>
+                  </div>
+
+                  <!-- QUARTERLY -->
+                  <div class="pass-type-option">
+                    <input type="radio" id="quarterly" name="pass_type" value="quarterly">
+                    <label for="quarterly" class="pass-type-card">
+                      <div class="pass-type-icon">
+                        <i class="bi bi-calendar3"></i>
+                      </div>
+                      <h6 class="fw-bold mt-3 mb-1">Trimestriel</h6>
+                      <p class="text-muted small mb-2">3 mois de transport illimité</p>
+                      <div class="pass-type-price">
+                        <span class="h5 fw-bold text-success">130 DH</span>
+                        <span class="badge bg-success-soft text-success ms-2">-13%</span>
+                      </div>
+                    </label>
+                  </div>
+
+                  <!-- YEARLY -->
+                  <div class="pass-type-option">
+                    <input type="radio" id="yearly" name="pass_type" value="yearly">
+                    <label for="yearly" class="pass-type-card">
+                      <div class="pass-type-icon">
+                        <i class="bi bi-calendar-year"></i>
+                      </div>
+                      <h6 class="fw-bold mt-3 mb-1">Annuel</h6>
+                      <p class="text-muted small mb-2">1 an de transport illimité</p>
+                      <div class="pass-type-price">
+                        <span class="h5 fw-bold text-warning">480 DH</span>
+                        <span class="badge bg-warning-soft text-warning ms-2">-20%</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TERMS -->
+              <div class="form-check mb-5">
+                <input class="form-check-input" type="checkbox" id="terms" required>
+                <label class="form-check-label" for="terms">
+                  J'accepte les 
+                  <a href="#" class="text-primary text-decoration-none">Conditions d'utilisation</a>
+                  et confirme que les informations ci-dessus sont correctes.
+                </label>
+              </div>
+
+              <!-- BUTTONS -->
+              <div class="d-flex gap-3">
+                <button type="submit" class="btn btn-primary-custom btn-lg flex-grow-1">
+                  <i class="bi bi-check-circle me-2"></i>Demander le Pass
+                </button>
+                <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-secondary btn-lg">
+                  Annuler
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- INFO PANEL -->
+      <div class="col-lg-4">
+        <div class="card card-modern sticky-top" style="top: 100px;">
+          <div class="card-header border-0">
+            <h5 class="fw-bold mb-0">
+              <i class="bi bi-info-circle me-2"></i>À savoir
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="info-item mb-4">
+              <h6 class="fw-bold text-primary mb-2">
+                <i class="bi bi-lightning-fill me-2"></i>Activation instantanée
+              </h6>
+              <p class="small text-muted mb-0">
+                Votre pass sera activé immédiatement après validation du paiement.
+              </p>
+            </div>
+
+            <div class="info-item mb-4">
+              <h6 class="fw-bold text-success mb-2">
+                <i class="bi bi-qr-code me-2"></i>QR Code personnel
+              </h6>
+              <p class="small text-muted mb-0">
+                Chaque pass génère un code QR unique pour la validation à bord.
+              </p>
+            </div>
+
+            <div class="info-item">
+              <h6 class="fw-bold text-warning mb-2">
+                <i class="bi bi-arrow-counterclockwise me-2"></i>Annulation gratuite
+              </h6>
+              <p class="small text-muted mb-0">
+                Vous pouvez annuler gratuitement jusqu'à 24h après l'achat.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}S'inscrire — BusPass Cloud{% endblock %}
+
+{% block content %}
+
+<div class="auth-container">
+  <div class="auth-card">
+    <!-- HEADER -->
+    <div class="text-center mb-5">
+      <div class="auth-icon">
+        <i class="bi bi-person-plus-fill"></i>
+      </div>
+      <h2 class="fw-bold mt-3">Créer un compte</h2>
+      <p class="text-muted">Rejoignez BusPass Cloud en 2 minutes</p>
+    </div>
+
+    <!-- FORM -->
+    <form method="POST" novalidate>
+      <!-- Full Name -->
+      <div class="mb-4">
+        <label for="full_name" class="form-label fw-600">Nom Complet</label>
+        <input 
+          type="text" 
+          class="form-control form-control-lg" 
+          id="full_name" 
+          name="full_name"
+          placeholder="ABDESMAD Maissem"
+          required
+        >
+      </div>
+
+      <!-- Email -->
+      <div class="mb-4">
+        <label for="email" class="form-label fw-600">Adresse Email</label>
+        <input 
+          type="email" 
+          class="form-control form-control-lg" 
+          id="email" 
+          name="email"
+          placeholder="votre@email.com"
+          required
+        >
+        <small class="text-muted">Nous ne partagerons jamais votre email.</small>
+      </div>
+
+      <!-- Phone -->
+      <div class="mb-4">
+        <label for="phone" class="form-label fw-600">Numéro de Téléphone</label>
+        <input 
+          type="tel" 
+          class="form-control form-control-lg" 
+          id="phone" 
+          name="phone"
+          placeholder="+213 6XX XXX XXX"
+          required
+        >
+        
+      </div>
+
+      <!-- Password -->
+      <div class="mb-4">
+        <label for="password" class="form-label fw-600">Mot de passe</label>
+        <input 
+          type="password" 
+          class="form-control form-control-lg" 
+          id="password" 
+          name="password"
+          placeholder="••••••••"
+          required
+        >
+        <small class="text-muted">Minimum 8 caractères avec majuscules et chiffres.</small>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="mb-4">
+        <label for="confirm_password" class="form-label fw-600">Confirmer le mot de passe</label>
+        <input 
+          type="password" 
+          class="form-control form-control-lg" 
+          id="confirm_password" 
+          name="confirm_password"
+          placeholder="••••••••"
+          required
+        >
+      </div>
+
+      <!-- Terms & Conditions -->
+      <div class="form-check mb-4">
+        <input class="form-check-input" type="checkbox" id="terms" name="terms" required>
+        <label class="form-check-label" for="terms">
+          J'accepte les 
+          <a href="#" class="text-primary text-decoration-none">Conditions d'utilisation</a>
+          et la 
+          <a href="#" class="text-primary text-decoration-none">Politique de confidentialité</a>
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary-custom btn-lg mb-3">
+        <i class="bi bi-person-plus-fill me-2"></i>Créer mon compte
+      </button>
+    </form>
+
+    <!-- DIVIDER -->
+    <div class="divider my-4">
+      <span>ou</span>
+    </div>
+
+    <!-- Login Link -->
+    <div class="text-center">
+      <p class="text-muted mb-0">
+        Vous avez déjà un compte ?
+        <a href="{{ url_for('auth.login') }}" class="fw-bold text-primary text-decoration-none">
+          Se connecter
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Security Info -->
+  <div class="text-center mt-4">
+    <p class="small text-muted">
+      <i class="bi bi-shield-check me-1"></i>
+      Votre inscription est sécurisée et chiffrée
+    </p>
+  </div>
+</div>
+
+{% endblock %}

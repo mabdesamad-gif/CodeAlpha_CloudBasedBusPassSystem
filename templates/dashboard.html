@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% block title %}Mon Dashboard — BusPass Cloud{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-container">
+  <!-- WELCOME SECTION -->
+  <div class="welcome-section mb-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h1 class="display-5 fw-bold text-white mb-3">
+            Bienvenue, <span class="text-warning">{{ current_user.full_name }}</span> ! 👋
+          </h1>
+          <p class="lead text-white-50">
+            Gérez vos passes de transport en toute sécurité depuis votre tableau de bord.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end text-center">
+          <a href="{{ url_for('passes.new_pass') }}" class="btn btn-warning btn-lg">
+            <i class="bi bi-plus-circle-fill me-2"></i>Nouveau Pass
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container mb-5">
+    <div class="row">
+      <!-- STATS CARDS -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="stat-card">
+          <div class="stat-icon bg-primary-soft">
+            <i class="bi bi-ticket-perforated text-primary"></i>
+          </div>
+          <h6 class="text-muted mt-3 mb-1">Passes Actifs</h6>
+          <h3 class="fw-bold">{{ stats.active }}</h3>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="stat-card">
+          <div class="stat-icon bg-warning-soft">
+            <i class="bi bi-hourglass text-warning"></i>
+          </div>
+          <h6 class="text-muted mt-3 mb-1">En Attente</h6>
+          <h3 class="fw-bold">{{ stats.pending }}</h3>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="stat-card">
+          <div class="stat-icon bg-info-soft">
+            <i class="bi bi-calendar-check text-info"></i>
+          </div>
+          <h6 class="text-muted mt-3 mb-1">Total Passes</h6>
+          <h3 class="fw-bold">{{ stats.total }}</h3>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="stat-card">
+          <div class="stat-icon bg-success-soft">
+            <i class="bi bi-wallet2 text-success"></i>
+          </div>
+          <h6 class="text-muted mt-3 mb-1">Dépense Totale</h6>
+          <h3 class="fw-bold">{{ stats.total_spent }} DZD</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVE PASSES -->
+    <div class="row mt-5">
+      <div class="col-lg-8">
+        <div class="card card-modern">
+          <div class="card-header border-0 pb-0">
+            <h5 class="fw-bold mb-0">
+              <i class="bi bi-ticket-fill me-2"></i>Mes Passes Actifs
+            </h5>
+          </div>
+          <div class="card-body">
+            {% if passes %}
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Trajet</th>
+                      <th>Type</th>
+                      <th>Validité</th>
+                      <th>État</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for pass in passes %}
+                    <tr>
+                      <td class="fw-500">{{ pass.route_from }} → {{ pass.route_to }}</td>
+                      <td>
+                        <span class="badge bg-info-soft text-info">{{ pass.pass_type }}</span>
+                      </td>
+                      <td>{{ pass.valid_until.strftime('%d/%m/%Y') if pass.valid_until else 'En attente' }}</td>
+                      <td>
+                        {% if pass.status == 'active' %}
+                          <span class="badge bg-success">Actif ✓</span>
+                        {% elif pass.status == 'pending' %}
+                          <span class="badge bg-warning text-dark">En attente</span>
+                        {% elif pass.status == 'rejected' %}
+                          <span class="badge bg-danger">Refusé</span>
+                        {% else %}
+                          <span class="badge bg-secondary">Expiré</span>
+                        {% endif %}
+                      </td>
+                      <td>
+                        {% if pass.qr_code_path %}
+                          <button class="btn btn-sm btn-outline-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#passModal"
+                            data-qr="{{ url_for('static', filename=pass.qr_code_path) }}"
+                            data-pass="{{ pass.pass_number }}"
+                            data-trajet="{{ pass.route_from }} → {{ pass.route_to }}"
+                            data-type="{{ pass.pass_type }}"
+                            data-validite="{{ pass.valid_until.strftime('%d/%m/%Y') if pass.valid_until else '-' }}">
+                            <i class="bi bi-qr-code"></i>
+                          </button>
+                        {% else %}
+                          <span class="text-muted small">En attente</span>
+                        {% endif %}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <div class="empty-state text-center py-5">
+                <i class="bi bi-inbox fs-1 text-muted mb-3"></i>
+                <p class="text-muted mb-3">Aucun pass pour le moment.</p>
+                <a href="{{ url_for('passes.new_pass') }}" class="btn btn-primary btn-sm">
+                  <i class="bi bi-plus-circle me-1"></i>Créer un pass
+                </a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK ACTIONS -->
+      <div class="col-lg-4">
+        <div class="card card-modern">
+          <div class="card-header border-0">
+            <h5 class="fw-bold mb-0">
+              <i class="bi bi-lightning-fill me-2"></i>Actions Rapides
+            </h5>
+          </div>
+          <div class="card-body">
+            <a href="{{ url_for('passes.new_pass') }}" class="quick-action">
+              <i class="bi bi-plus-circle"></i>
+              <span>Nouveau Pass</span>
+            </a>
+            <a href="#" class="quick-action">
+              <i class="bi bi-question-circle"></i>
+              <span>Support & Aide</span>
+            </a>
+            <a href="#" class="quick-action">
+              <i class="bi bi-gear"></i>
+              <span>Paramètres</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QR CODE MODAL -->
+<div class="modal fade" id="passModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold">QR Code — <span id="modalPassNumber"></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center py-4">
+        <img id="modalQrImage" src="" alt="QR Code" class="img-fluid mb-3" style="max-width:250px;">
+        <p class="mb-1"><strong>Trajet :</strong> <span id="modalTrajet"></span></p>
+        <p class="mb-1"><strong>Type :</strong> <span id="modalType"></span></p>
+        <p class="mb-1"><strong>Valide jusqu'au :</strong> <span id="modalValidite"></span></p>
+        <p class="text-muted mt-3 small">Montrez ce code au chauffeur</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Script pour remplir le modal -->
+<script>
+  const passModal = document.getElementById('passModal')
+  passModal.addEventListener('show.bs.modal', event => {
+    const btn = event.relatedTarget
+    document.getElementById('modalQrImage').src = btn.getAttribute('data-qr')
+    document.getElementById('modalPassNumber').textContent = btn.getAttribute('data-pass')
+    document.getElementById('modalTrajet').textContent = btn.getAttribute('data-trajet')
+    document.getElementById('modalType').textContent = btn.getAttribute('data-type')
+    document.getElementById('modalValidite').textContent = btn.getAttribute('data-validite')
+  })
+</script>
+
+{% endblock %}

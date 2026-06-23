@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Se Connecter — BusPass Cloud{% endblock %}
+
+{% block content %}
+
+<div class="auth-container">
+  <div class="auth-card">
+    <!-- HEADER -->
+    <div class="text-center mb-5">
+      <div class="auth-icon">
+        <i class="bi bi-box-arrow-in-right"></i>
+      </div>
+      <h2 class="fw-bold mt-3">Connexion</h2>
+      <p class="text-muted">Accédez à votre compte BusPass Cloud</p>
+    </div>
+
+    <!-- FORM -->
+    <form method="POST" novalidate>
+      <!-- Email -->
+      <div class="mb-4">
+        <label for="email" class="form-label fw-600">Adresse Email</label>
+        <input 
+          type="email" 
+          class="form-control form-control-lg" 
+          id="email" 
+          name="email"
+          placeholder="votre@email.com"
+          required
+        >
+        <small class="text-muted">Nous ne partagerons jamais votre email.</small>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-4">
+        <label for="password" class="form-label fw-600">Mot de passe</label>
+        <input 
+          type="password" 
+          class="form-control form-control-lg" 
+          id="password" 
+          name="password"
+          placeholder="••••••••"
+          required
+        >
+      </div>
+
+      <!-- Remember Me -->
+      <div class="form-check mb-4">
+        <input class="form-check-input" type="checkbox" id="remember" name="remember">
+        <label class="form-check-label" for="remember">
+          Se souvenir de moi
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary-custom btn-lg mb-3">
+        <i class="bi bi-box-arrow-in-right me-2"></i>Se Connecter
+      </button>
+    </form>
+
+    <!-- DIVIDER -->
+    <div class="divider my-4">
+      <span>ou</span>
+    </div>
+
+    <!-- Sign Up Link -->
+    <div class="text-center">
+      <p class="text-muted mb-0">
+        Pas encore de compte ?
+        <a href="{{ url_for('auth.register') }}" class="fw-bold text-primary text-decoration-none">
+          S'inscrire gratuitement
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Security Info -->
+  <div class="text-center mt-4">
+    <p class="small text-muted">
+      <i class="bi bi-shield-check me-1"></i>
+      Votre connexion est sécurisée et chiffrée
+    </p>
+  </div>
+</div>
+
+{% endblock %}
