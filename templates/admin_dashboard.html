@@ -15,7 +15,7 @@
         <div class="stat-icon bg-primary-soft mx-auto mb-3">
           <i class="bi bi-people-fill text-primary"></i>
         </div>
-        <h3 class="fw-bold">{{ total_users }}</h3>
+        <h3 class="fw-bold">{{ stats.total_users }}</h3>
         <p class="text-muted mb-0">Utilisateurs</p>
       </div>
     </div>
@@ -24,7 +24,7 @@
         <div class="stat-icon bg-warning-soft mx-auto mb-3">
           <i class="bi bi-hourglass-split text-warning"></i>
         </div>
-        <h3 class="fw-bold">{{ pending_passes }}</h3>
+        <h3 class="fw-bold">{{ stats.pending_passes }}</h3>
         <p class="text-muted mb-0">En Attente</p>
       </div>
     </div>
@@ -33,7 +33,7 @@
         <div class="stat-icon bg-success-soft mx-auto mb-3">
           <i class="bi bi-check-circle-fill text-success"></i>
         </div>
-        <h3 class="fw-bold">{{ active_passes }}</h3>
+        <h3 class="fw-bold">{{ stats.active_passes }}</h3>
         <p class="text-muted mb-0">Passes Actifs</p>
       </div>
     </div>
@@ -42,7 +42,7 @@
         <div class="stat-icon bg-primary-soft mx-auto mb-3">
           <i class="bi bi-ticket-perforated-fill text-primary"></i>
         </div>
-        <h3 class="fw-bold">{{ total_passes }}</h3>
+        <h3 class="fw-bold">{{ stats.total_passes }}</h3>
         <p class="text-muted mb-0">Total Passes</p>
       </div>
     </div>
@@ -71,6 +71,7 @@
           </thead>
           <tbody>
             {% for pass in passes %}
+            {% if pass.status == 'pending' %}
             <tr>
               <td>
                 <strong>{{ pass.owner.full_name }}</strong><br>
@@ -81,16 +82,19 @@
               <td><strong>{{ pass.price }} DH</strong></td>
               <td>{{ pass.created_at.strftime('%d/%m/%Y') }}</td>
               <td>
-                <a href="/admin/approve/{{ pass.id }}"
-                   class="btn btn-success btn-sm me-1">
-                  <i class="bi bi-check-lg"></i> Approuver
-                </a>
-                <a href="/admin/reject/{{ pass.id }}"
-                   class="btn btn-danger btn-sm">
-                  <i class="bi bi-x-lg"></i> Rejeter
-                </a>
+                <form action="{{ url_for('admin.approve_pass', pass_id=pass.id) }}" method="POST" style="display:inline">
+                  <button type="submit" class="btn btn-success btn-sm me-1">
+                    <i class="bi bi-check-lg"></i> Approuver
+                  </button>
+                </form>
+                <form action="{{ url_for('admin.reject_pass', pass_id=pass.id) }}" method="POST" style="display:inline">
+                  <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="bi bi-x-lg"></i> Rejeter
+                  </button>
+                </form>
               </td>
             </tr>
+            {% endif %}
             {% else %}
             <tr>
               <td colspan="6" class="text-center py-4 text-muted">
@@ -104,5 +108,58 @@
       </div>
     </div>
   </div>
+
+  <!-- Tous les passes -->
+  <div class="card border-0 shadow-sm mt-4">
+    <div class="card-header bg-white py-3">
+      <h5 class="fw-bold mb-0">
+        <i class="bi bi-ticket-perforated text-primary me-2"></i>
+        Tous les Passes
+      </h5>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Numéro</th>
+              <th>Étudiant</th>
+              <th>Trajet</th>
+              <th>Type</th>
+              <th>Statut</th>
+              <th>Date fin</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pass in passes %}
+            <tr>
+              <td><code>{{ pass.pass_number }}</code></td>
+              <td>{{ pass.owner.full_name }}</td>
+              <td>{{ pass.route_from }} → {{ pass.route_to }}</td>
+              <td><span class="badge bg-info">{{ pass.pass_type }}</span></td>
+              <td>
+                {% if pass.status == 'active' %}
+                  <span class="badge bg-success">Actif</span>
+                {% elif pass.status == 'pending' %}
+                  <span class="badge bg-warning text-dark">En attente</span>
+                {% elif pass.status == 'rejected' %}
+                  <span class="badge bg-danger">Refusé</span>
+                {% else %}
+                  <span class="badge bg-secondary">Expiré</span>
+                {% endif %}
+              </td>
+              <td>{{ pass.end_date.strftime('%d/%m/%Y') if pass.end_date else '—' }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="6" class="text-center py-4 text-muted">Aucun pass</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 </div>
 {% endblock %}
